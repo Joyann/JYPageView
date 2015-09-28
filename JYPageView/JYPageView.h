@@ -35,7 +35,7 @@
  *  用来判断是否需要自动播放.
  *  默认为NO，不进行自动播放.
  */
-@property (nonatomic, assign) BOOL automaiticPlay;
+@property (nonatomic, assign) BOOL automaticPlay;
 /**
  *  用来判断当用户手指拖动超过图片的二分之一的时候，pageControl是否更新.
  *  默认为NO，当用户松开手的时候才更新pageControl.

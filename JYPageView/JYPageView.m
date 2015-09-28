@@ -28,8 +28,8 @@
 {
     JYPageView *pageView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
     
-    pageView.automaiticPlay = NO;
-    pageView.duration = 1.5; // 注意automaticiPlay和duration设置顺序，不可以反过来
+    pageView.automaticPlay = NO;
+    pageView.duration = 1.5;
     
     return pageView;
 }
@@ -39,8 +39,8 @@
     JYPageView *pageView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
     
     pageView.photoNames = photoNames;
-    pageView.automaiticPlay = automatic;
-    pageView.duration = 1.5; // 注意automaticiPlay和duration设置顺序，不可以反过来
+    pageView.automaticPlay = automatic;
+    pageView.duration = 1.5;
     
     return pageView;
 }
@@ -99,11 +99,11 @@
     self.pageControl.currentPage = 0;
 }
 
-- (void)setAutomaiticPlay:(BOOL)automaiticPlay
+- (void)setAutomaticPlay:(BOOL)automaticPlay
 {
-    if (_automaiticPlay != automaiticPlay) {
-        _automaiticPlay = automaiticPlay;
-        if (_automaiticPlay) {
+    if (_automaticPlay != automaticPlay) {
+        _automaticPlay = automaticPlay;
+        if (_automaticPlay) {
             [self addTimerWithDuration:self.duration];
         } else {
             [self removeTimer];
@@ -113,7 +113,8 @@
 
 - (void)setDuration:(CGFloat)duration
 {
-    if (self.automaiticPlay) {
+    _duration = duration;
+    if (self.automaticPlay) {
         [self addTimerWithDuration:duration];
     }
 }
@@ -129,15 +130,15 @@
 // 当用户手指拖动图片的时候，移除timer，关闭自动播放
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    self.automaiticPlay = NO;
+    self.automaticPlay = NO;
 }
 
 // 当用户手指离开图片，增加timer，开启自动播放
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     // 首先要判断是否是自动播放.如果不判断，那么会出现当设置不自动播放的时候，用户拖拽图片，松开手后会继续自动播放的bug.
-    if (self.automaiticPlay) {
-        self.automaiticPlay = YES;
+    if (self.automaticPlay) {
+        self.automaticPlay = YES;
     }
 }
 
