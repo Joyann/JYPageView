@@ -17,7 +17,7 @@
 + (instancetype)pageView;
 
 /**
- *  JYPageView的初始化方法，直接将photoNames传入。
+ *  JYPageView的初始化方法，直接将photoNames传入.该方法默认不自动播放.
  *
  *  @param photoNames 图片名称的数组
  *  @param automatic 是否自动播放
@@ -47,6 +47,6 @@
  *  设置图片播放间隔时间.
  *  默认为1.5秒.
  */
-@property (nonatomic, assign) NSUInteger duration;
+@property (nonatomic, assign) CGFloat duration;
 
 @end

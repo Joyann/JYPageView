@@ -27,7 +27,10 @@
 + (instancetype)pageView
 {
     JYPageView *pageView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
-
+    
+    pageView.automaiticPlay = NO;
+    pageView.duration = 1.5; // 注意automaticiPlay和duration设置顺序，不可以反过来
+    
     return pageView;
 }
 
@@ -37,6 +40,7 @@
     
     pageView.photoNames = photoNames;
     pageView.automaiticPlay = automatic;
+    pageView.duration = 1.5; // 注意automaticiPlay和duration设置顺序，不可以反过来
     
     return pageView;
 }
@@ -47,9 +51,6 @@
     
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    
-    // 设置播放图片的时间间隔为1.5s.
-    self.duration = 1.5;
 }
 
 
@@ -103,10 +104,17 @@
     if (_automaiticPlay != automaiticPlay) {
         _automaiticPlay = automaiticPlay;
         if (_automaiticPlay) {
-            [self addTimer];
+            [self addTimerWithDuration:self.duration];
         } else {
             [self removeTimer];
         }
+    }
+}
+
+- (void)setDuration:(CGFloat)duration
+{
+    if (self.automaiticPlay) {
+        [self addTimerWithDuration:duration];
     }
 }
 
@@ -135,14 +143,13 @@
 
 #pragma mark - helper methods
 
-- (void)addTimer
+- (void)addTimerWithDuration: (CGFloat)duration
 {
     // 首先移除之前的timer
     [self removeTimer];
-    
     // 增加timer自动播放图片
-    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:self.duration]; // 从现在开始1.5秒后开始播放
-    self.timer = [[NSTimer alloc] initWithFireDate:fireDate interval: self.duration target:self selector:@selector(playImages) userInfo:nil repeats:YES];
+    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow: duration];
+    self.timer = [[NSTimer alloc] initWithFireDate:fireDate interval: duration target:self selector:@selector(playImages) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
