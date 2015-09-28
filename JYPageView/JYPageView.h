@@ -9,16 +9,22 @@
 #import <UIKit/UIKit.h>
 
 @interface JYPageView : UIView
-
 /**
- *  JYPageView的初始化方法
- *
- *  @param photoNames 图片名称的数组
- *  @param automatic  是否自动播放
+ *  JYPageView的初始化方法，需要再设置photoNames属性。
  *
  *  @return 返回一个JYPageView的对象
  */
-+ (instancetype)pageViewWithPhotoNames: (NSArray *)photoNames automaticPlay: (BOOL)automatic;
++ (instancetype)pageView;
+
+/**
+ *  JYPageView的初始化方法，直接将photoNames传入。
+ *
+ *  @param photoNames 图片名称的数组
+ *  @param automatic 是否自动播放
+ *
+ *  @return 返回一个JYPageView的对象
+ */
++ (instancetype)pageViewWithPhotoNames:(NSArray *)photoNames automaticPlay:(BOOL)automatic;
 
 /**
  *  图片名称的数组.
@@ -36,5 +42,11 @@
  *  当设置为YES的时候则是只要超过图片二分之一就更新pageControl即使没有松开手.
  */
 @property (nonatomic, assign) BOOL immediatelyRefreshPageControl;
+
+/**
+ *  设置图片播放间隔时间.
+ *  默认为1.5秒.
+ */
+@property (nonatomic, assign) NSUInteger duration;
 
 @end

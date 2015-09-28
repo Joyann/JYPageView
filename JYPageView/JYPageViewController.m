@@ -24,7 +24,6 @@
     NSArray *photoNames = @[@"1", @"2", @"3", @"4", @"5"];
     JYPageView *pageView = [JYPageView pageViewWithPhotoNames:photoNames automaticPlay:YES];
     pageView.immediatelyRefreshPageControl = YES;
-    
 //    pageView.center = self.view.center;
     pageView.frame = CGRectMake(50, 100, 300, 150);
     pageView.photoNames = @[@"1", @"2"];
