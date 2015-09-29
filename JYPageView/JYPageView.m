@@ -183,12 +183,10 @@
 // 当用户手指离开图片，增加timer，开启自动播放
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    // 首先要判断是否是自动播放.如果不判断，那么会出现当设置不自动播放的时候，用户拖拽图片，松开手后会继续自动播放的bug.
     // 当用户手指离开的时候分两种情况。一种是automaticPlay的情况下，那么应该重新将self.automaticPlay设置为YES来重新添加timer；另一种不是在automaticPlay的情况下，那么automaticPlay不应该设置为YES.
-    if (!self.automaticPlay) {
-        self.automaticPlay = YES;
-        NSLog(@"重新添加");
-    }
+#warning 这样写在automaticPlay情况下没有问题，但是在不automaticPlay的情况下，当用户手指离开会重新给加上timer，又变成automaticPlay. bug.
+    self.automaticPlay = YES;
+    NSLog(@"重新添加");
     
 //    if (!decelerate) {
 //        self.pageViewDidScrollWithIndex(self.pageControl.currentPage);

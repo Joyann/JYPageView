@@ -93,6 +93,11 @@
  */
 @property (nonatomic, assign) NSInteger currentPageIndex;
 
+/**
+ *  当scrollView滚动到一个页面并停下来的时候，会调用这个block.
+ *  注意，只有通过setContentOffset:animated:方法滚动的时候才会调用这个block.
+ *  当用户用手指滑动scrollView然后停下来是不会调用这个block的.
+ */
 @property (nonatomic, copy) void (^pageViewDidScrollWithIndex) (NSInteger index);
 
 
