@@ -26,8 +26,11 @@
     pageView.immediatelyRefreshPageControl = YES;
     pageView.frame = CGRectMake(50, 100, 300, 150);
     pageView.photoNames = photoNames;
-    pageView.duration = 3.0;
+    pageView.duration = 1.5;
     pageView.automaticPlay = YES;
+    pageView.pageViewDidScrollWithIndex = ^(NSInteger index) {
+        NSLog(@"%ld", index);
+    };
     
     [self.view addSubview:pageView];
 }

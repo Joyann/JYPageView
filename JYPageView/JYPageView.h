@@ -49,4 +49,51 @@
  */
 @property (nonatomic, assign) CGFloat duration;
 
+/**
+ *  设置pageControl是否可用.
+ *  默认为NO, pageControl不可用.
+ *  当设置为YES的时候可以点击pageControl, scrollView会根据pageControl移动的相应的位置.
+ */
+
+/**
+ *  设置pageControl选中的图片.
+ *  @warning 设置这个属性也要设置pageControlImage属性.
+ */
+@property (nonatomic, strong) UIImage *currentPageImage;
+
+/**
+ *  设置pageControl默认的图片.
+ *  @warning 设置这个属性也要设置currentPageImage属性.
+ */
+@property (nonatomic, strong) UIImage *pageConrolImage;
+
+/**
+ *  设置pageControl默认颜色.
+ */
+@property (nonatomic, strong) UIColor *pageControlTintColor;
+
+/**
+ *  设置pageControl选中的颜色.
+ */
+@property (nonatomic, strong) UIColor *currentPageControlTintColor;
+
+/**
+ *  当只有一张图片的时候，设置是否隐藏pageControl.
+ *  默认为YES，当有一张图片的时候，自动隐藏pageControl.
+ */
+@property (nonatomic, assign) BOOL hidePageControlForSingleImage;
+
+/**
+ *  获得当前有多少个page, 也等于当前图片数.
+ */
+@property (nonatomic, assign) NSInteger numberOfPages;
+
+/**
+ *  获得当前page的index.
+ */
+@property (nonatomic, assign) NSInteger currentPageIndex;
+
+@property (nonatomic, copy) void (^pageViewDidScrollWithIndex) (NSInteger index);
+
+
 @end

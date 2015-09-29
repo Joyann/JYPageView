@@ -51,6 +51,8 @@
     
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
+    
+    self.pageControl.hidesForSinglePage = YES;
 }
 
 
@@ -72,7 +74,33 @@
     [self setPhotoNames:self.photoNames];
 }
 
+#pragma mark - getter methods
+- (NSInteger)numberOfPages
+{
+    return self.pageControl.numberOfPages;
+}
+
+- (NSInteger)currentPageIndex
+{
+    return self.pageControl.currentPage;
+}
+
 #pragma mark - setter methods
+
+- (void)setPageControlTintColor:(UIColor *)pageControlTintColor
+{
+    self.pageControl.pageIndicatorTintColor = pageControlTintColor;
+}
+
+- (void)setCurrentPageControlTintColor:(UIColor *)currentPageControlTintColor
+{
+    self.pageControl.currentPageIndicatorTintColor = currentPageControlTintColor;
+}
+
+- (void)setHidePageControlForSingleImage:(BOOL)hidePageControlForSingleImage
+{
+    self.pageControl.hidesForSinglePage = hidePageControlForSingleImage;
+}
 
 - (void)setPhotoNames:(NSArray *)photoNames
 {
@@ -119,6 +147,18 @@
     }
 }
 
+// KVC 修改当前pageControl的图片
+- (void)setCurrentPageImage:(UIImage *)currentPageImage
+{
+    [self.pageControl setValue:currentPageImage forKeyPath:@"_currentPageImage"];
+}
+
+// KVC 修改pageControl的图片
+- (void)setPageConrolImage:(UIImage *)pageConrolImage
+{
+    [self.pageControl setValue:pageConrolImage forKeyPath:@"_pageImage"];
+}
+
 #pragma mark - UIScrollViewDelegate
 
 // 根据scrollView移动的距离计算是第几个page
@@ -133,14 +173,38 @@
     self.automaticPlay = NO;
 }
 
+/**
+ *  scrollView停下来有三种情况：
+ *  1. 没有经过减速就停止 -> scrollViewDidEndDragging:willDecelerate:
+ *  2. 经过减速停止      -> scrollViewDidEndDecelerating:
+ *  3. 通过setContentOffset:animated:改变offset然后停止 -> scrollViewDidEndScrollingAnimation:
+ */
+
 // 当用户手指离开图片，增加timer，开启自动播放
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     // 首先要判断是否是自动播放.如果不判断，那么会出现当设置不自动播放的时候，用户拖拽图片，松开手后会继续自动播放的bug.
-    if (self.automaticPlay) {
+    // 当用户手指离开的时候分两种情况。一种是automaticPlay的情况下，那么应该重新将self.automaticPlay设置为YES来重新添加timer；另一种不是在automaticPlay的情况下，那么automaticPlay不应该设置为YES.
+    if (!self.automaticPlay) {
         self.automaticPlay = YES;
+        NSLog(@"重新添加");
     }
+    
+//    if (!decelerate) {
+//        self.pageViewDidScrollWithIndex(self.pageControl.currentPage);
+//    }
 }
+
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    self.pageViewDidScrollWithIndex(self.pageControl.currentPage);
+//}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    self.pageViewDidScrollWithIndex(self.pageControl.currentPage);
+}
+
 
 #pragma mark - helper methods
 
