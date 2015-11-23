@@ -8,11 +8,15 @@
 
 #import "JYPageView.h"
 
+static const CGFloat kPageControlWidth  = 100;
+static const CGFloat kPageCOntrolHeight = 37;
+
 @interface JYPageView () <UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) UIPageControl *pageControl;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL timerFlag; // 用来记录手势的标志,每次点击图片的时候应该修改的是这个值, 而不应该是用户的auto选择.
 
 @end
 
@@ -26,33 +30,59 @@
 
 + (instancetype)pageView
 {
-    JYPageView *pageView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
-    
-    pageView.automaticPlay = NO;
-    pageView.duration = 1.5;
+    JYPageView *pageView = [[JYPageView alloc] init];
     
     return pageView;
 }
 
 + (instancetype)pageViewWithPhotoNames:(NSArray *)photoNames automaticPlay:(BOOL)automatic
 {
-    JYPageView *pageView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil] firstObject];
+    JYPageView *pageView = [[JYPageView alloc] init];
     
     pageView.photoNames = photoNames;
     pageView.automaticPlay = automatic;
-    pageView.duration = 1.5;
     
     return pageView;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        [self addSubviews];
+        
+        [self initSetUp];
+    }
+    return self;
 }
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
+    [self initSetUp];
+}
+
+- (void)initSetUp
+{
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
     
     self.pageControl.hidesForSinglePage = YES;
+    
+    self.duration = 1.5;
+    self.automaticPlay = NO;
+}
+
+- (void)addSubviews
+{
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    [self addSubview:scrollView];
+    self.scrollView = scrollView;
+    
+    UIPageControl *pageControl = [[UIPageControl alloc] init];
+    [self addSubview:pageControl];
+    self.pageControl = pageControl;
 }
 
 
@@ -63,9 +93,9 @@
     // 重新设置scrollView的位置和大小
     self.scrollView.frame = self.bounds;
     
-    // 重新设置pageControl的位置
-    CGFloat width = self.pageControl.frame.size.width;
-    CGFloat height = self.pageControl.frame.size.height;
+    // 重新设置pageControl的位置和大小
+    CGFloat width = kPageControlWidth;
+    CGFloat height = kPageCOntrolHeight;
     CGFloat x = self.bounds.size.width / 2 - width / 2;
     CGFloat y = self.bounds.size.height - height;
     self.pageControl.frame = CGRectMake(x, y, width, height);
@@ -114,7 +144,7 @@
         UIImage *image = [UIImage imageNamed:photoNames[i]];
         CGRect imageRect = CGRectMake(i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageRect];
-//        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.image = image;
         
         [self.scrollView addSubview:imageView];
@@ -127,15 +157,15 @@
     self.pageControl.currentPage = 0;
 }
 
-- (void)setAutomaticPlay:(BOOL)automaticPlay
+- (void)setTimerFlag:(BOOL)timerFlag
 {
-    if (_automaticPlay != automaticPlay) {
-        _automaticPlay = automaticPlay;
-        if (_automaticPlay) {
-            [self addTimerWithDuration:self.duration];
-        } else {
-            [self removeTimer];
-        }
+    _timerFlag = timerFlag;
+    
+    if (_timerFlag) {
+        [self addTimerWithDuration:self.duration];
+    } else {
+        [self removeTimer];
+        self.timer = nil;
     }
 }
 
@@ -170,7 +200,7 @@
 // 当用户手指拖动图片的时候，移除timer，关闭自动播放
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    self.automaticPlay = NO;
+    self.timerFlag = NO;
 }
 
 /**
@@ -183,10 +213,10 @@
 // 当用户手指离开图片，增加timer，开启自动播放
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    // 当用户手指离开的时候分两种情况。一种是automaticPlay的情况下，那么应该重新将self.automaticPlay设置为YES来重新添加timer；另一种不是在automaticPlay的情况下，那么automaticPlay不应该设置为YES.
-#warning 这样写在automaticPlay情况下没有问题，但是在不automaticPlay的情况下，当用户手指离开会重新给加上timer，又变成automaticPlay. bug.
-    self.automaticPlay = YES;
-    NSLog(@"重新添加");
+
+    if (self.automaticPlay) {
+        self.timerFlag = YES;
+    }
     
 //    if (!decelerate) {
 //        self.pageViewDidScrollWithIndex(self.pageControl.currentPage);

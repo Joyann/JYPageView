@@ -10,14 +10,14 @@
 
 @interface JYPageView : UIView
 /**
- *  JYPageView的初始化方法，需要再设置photoNames属性。
+ *  JYPageView的初始化方法，默认为自动滚动，间隔时间为1.5s.
  *
  *  @return 返回一个JYPageView的对象
  */
 + (instancetype)pageView;
 
 /**
- *  JYPageView的初始化方法，直接将photoNames传入.该方法默认不自动播放.
+ *  JYPageView的初始化方法，直接将photoNames传入.默认自动滚动，间隔时间为1.5s.
  *
  *  @param photoNames 图片名称的数组
  *  @param automatic 是否自动播放
@@ -33,7 +33,7 @@
 
 /**
  *  用来判断是否需要自动播放.
- *  默认为NO，不进行自动播放.
+ *  默认为YES.
  */
 @property (nonatomic, assign) BOOL automaticPlay;
 /**

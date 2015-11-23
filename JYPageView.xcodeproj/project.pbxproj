@@ -14,7 +14,6 @@
 		628355B01BB6DC7700380DCF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 628355AE1BB6DC7700380DCF /* LaunchScreen.xib */; };
 		628355BC1BB6DC7700380DCF /* JYPageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 628355BB1BB6DC7700380DCF /* JYPageViewTests.m */; };
 		628355C71BB6DCBC00380DCF /* JYPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 628355C61BB6DCBC00380DCF /* JYPageView.m */; };
-		628355C91BB6DCDE00380DCF /* JYPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 628355C81BB6DCDE00380DCF /* JYPageView.xib */; };
 		628355CC1BB6E45500380DCF /* JYPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628355CB1BB6E45500380DCF /* JYPageViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		628355BB1BB6DC7700380DCF /* JYPageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYPageViewTests.m; sourceTree = "<group>"; };
 		628355C51BB6DCBC00380DCF /* JYPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPageView.h; sourceTree = "<group>"; };
 		628355C61BB6DCBC00380DCF /* JYPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPageView.m; sourceTree = "<group>"; };
-		628355C81BB6DCDE00380DCF /* JYPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JYPageView.xib; sourceTree = "<group>"; };
 		628355CA1BB6E45500380DCF /* JYPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPageViewController.h; sourceTree = "<group>"; };
 		628355CB1BB6E45500380DCF /* JYPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,7 +94,6 @@
 				6283559F1BB6DC7700380DCF /* Supporting Files */,
 				628355C51BB6DCBC00380DCF /* JYPageView.h */,
 				628355C61BB6DCBC00380DCF /* JYPageView.m */,
-				628355C81BB6DCDE00380DCF /* JYPageView.xib */,
 			);
 			path = JYPageView;
 			sourceTree = "<group>";
@@ -171,7 +168,7 @@
 		628355941BB6DC7700380DCF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Joyann;
 				TargetAttributes = {
 					6283559B1BB6DC7700380DCF = {
@@ -209,7 +206,6 @@
 			files = (
 				628355AB1BB6DC7700380DCF /* Main.storyboard in Resources */,
 				628355B01BB6DC7700380DCF /* LaunchScreen.xib in Resources */,
-				628355C91BB6DCDE00380DCF /* JYPageView.xib in Resources */,
 				628355AD1BB6DC7700380DCF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +290,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -361,6 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JYPageView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joyann.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -371,6 +369,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JYPageView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joyann.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -389,6 +388,7 @@
 				);
 				INFOPLIST_FILE = JYPageViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joyann.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JYPageView.app/JYPageView";
 			};
@@ -404,6 +404,7 @@
 				);
 				INFOPLIST_FILE = JYPageViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joyann.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JYPageView.app/JYPageView";
 			};
@@ -428,6 +429,7 @@
 				628355C11BB6DC7700380DCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		628355C21BB6DC7700380DCF /* Build configuration list for PBXNativeTarget "JYPageViewTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +438,7 @@
 				628355C41BB6DC7700380DCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

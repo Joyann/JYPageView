@@ -23,11 +23,9 @@
 
     NSArray *photoNames = @[@"1", @"2", @"3", @"4", @"5"];
     JYPageView *pageView = [JYPageView pageView];
+    pageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
     pageView.immediatelyRefreshPageControl = YES;
-    pageView.frame = CGRectMake(50, 100, 300, 150);
     pageView.photoNames = photoNames;
-    pageView.duration = 1.5;
-    pageView.automaticPlay = YES;
     pageView.pageViewDidScrollWithIndex = ^(NSInteger index) {
         NSLog(@"%ld", index);
     };

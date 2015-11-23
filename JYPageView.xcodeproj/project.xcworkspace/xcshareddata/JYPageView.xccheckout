@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>6404084E-CB46-4729-BD16-EAEE0A491C99</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>JYPageView</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>66434C06C4A498C65C9BAE85086274745FFF7872</key>
 		<string>github.com:Joyann/JYPageView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>JYPageView.xcodeproj/project.xcworkspace</string>
+	<string>JYPageView.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>66434C06C4A498C65C9BAE85086274745FFF7872</key>
