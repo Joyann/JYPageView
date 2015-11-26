@@ -27,6 +27,15 @@
 + (instancetype)pageViewWithPhotoNames:(NSArray *)photoNames automaticPlay:(BOOL)automatic;
 
 /**
+ *  创建一个基于JYPageView的引导页对象.默认为全屏并且不会自动播放.
+ *
+ *  @param photoNames 引导页的图片.
+ *
+ *  @return 返回一个JYPageView的对象.
+ */
++ (instancetype)pageIntroViewWithPhotoNames:(NSArray *)photoNames;
+
+/**
  *  图片名称的数组.
  */
 @property (nonatomic, strong) NSArray *photoNames;

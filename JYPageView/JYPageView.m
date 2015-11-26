@@ -9,7 +9,7 @@
 #import "JYPageView.h"
 
 static const CGFloat kPageControlWidth  = 100;
-static const CGFloat kPageCOntrolHeight = 37;
+static const CGFloat kPageControlHeight = 37;
 
 @interface JYPageView () <UIScrollViewDelegate>
 
@@ -43,6 +43,13 @@ static const CGFloat kPageCOntrolHeight = 37;
     pageView.automaticPlay = automatic;
     
     return pageView;
+}
+
++ (instancetype)pageIntroViewWithPhotoNames:(NSArray *)photoNames
+{
+    JYPageView *introView = [self pageViewWithPhotoNames:photoNames automaticPlay:NO];
+    introView.frame = [UIScreen mainScreen].bounds;
+    return introView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -95,7 +102,7 @@ static const CGFloat kPageCOntrolHeight = 37;
     
     // 重新设置pageControl的位置和大小
     CGFloat width = kPageControlWidth;
-    CGFloat height = kPageCOntrolHeight;
+    CGFloat height = kPageControlHeight;
     CGFloat x = self.bounds.size.width / 2 - width / 2;
     CGFloat y = self.bounds.size.height - height;
     self.pageControl.frame = CGRectMake(x, y, width, height);
@@ -144,7 +151,7 @@ static const CGFloat kPageCOntrolHeight = 37;
         UIImage *image = [UIImage imageNamed:photoNames[i]];
         CGRect imageRect = CGRectMake(i * self.scrollView.bounds.size.width, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageRect];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
+//        imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.image = image;
         
         [self.scrollView addSubview:imageView];
@@ -155,6 +162,13 @@ static const CGFloat kPageCOntrolHeight = 37;
     
     self.pageControl.numberOfPages = self.photoNames.count;
     self.pageControl.currentPage = 0;
+}
+
+- (void)setAutomaticPlay:(BOOL)automaticPlay
+{
+    _automaticPlay = automaticPlay;
+    
+    self.timerFlag = YES;
 }
 
 - (void)setTimerFlag:(BOOL)timerFlag

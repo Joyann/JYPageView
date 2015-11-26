@@ -21,16 +21,31 @@
     
     self.view.backgroundColor = [UIColor purpleColor];
 
+    [self createIntroView];
+//    [self createPageView];
+}
+
+- (void)createIntroView
+{
+    NSArray *photoNames = @[@"1", @"2", @"3", @"4", @"5"];
+    JYPageView *introView = [JYPageView pageIntroViewWithPhotoNames:photoNames];
+    [self.view addSubview:introView];
+}
+
+- (void)createPageView
+{
     NSArray *photoNames = @[@"1", @"2", @"3", @"4", @"5"];
     JYPageView *pageView = [JYPageView pageView];
-    pageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 100);
+    pageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 150);
     pageView.immediatelyRefreshPageControl = YES;
+    pageView.automaticPlay = YES;
     pageView.photoNames = photoNames;
     pageView.pageViewDidScrollWithIndex = ^(NSInteger index) {
         NSLog(@"%ld", index);
     };
     
     [self.view addSubview:pageView];
+
 }
 
 @end
